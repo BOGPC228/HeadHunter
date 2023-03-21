@@ -25,7 +25,7 @@ def get_statistics_languages_hh(languages):
 
 
 def get_statistics_vacancies(language):
-    all_salary = []
+    all_salaries = []
     for page in count(0):
         vacancies = get_vacancies(language, page)       
         if page >= vacancies['pages']-1:
@@ -37,14 +37,14 @@ def get_statistics_vacancies(language):
                 continue
             salary_from = vacancy["salary"]["from"]
             salary_to = vacancy["salary"]["to"]      
-            all_salary.append(predict_rub_salary(salary_from, salary_to))
-    if all_salary:
-        average_salary = int(sum(all_salary) / len(all_salary))
+            all_salaries.append(predict_rub_salary(salary_from, salary_to))
+    if all_salaries:
+        average_salary = int(sum(all_salaries) / len(all_salaries))
     else:
         average_salary = None
     vacancies_statistics = {
         "all_vacancies": vacancies["found"],
-        "vacancies_processed": len(all_salary),
+        "vacancies_processed": len(all_salaries),
         "average_salary": average_salary
     }
     return vacancies_statistics
